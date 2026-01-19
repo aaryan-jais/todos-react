@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+const api = import.meta.env.VITE_API_URL;
+
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -7,21 +9,21 @@ function App() {
 
   // Fetch todos
   const getTodos = async () => {
-    const res = await axios.get("http://localhost:3000/todos");
+    const res = await axios.get(`${api}/todos`);
     setTodos(res.data);
   };
 
   // Add todo
   const addTodo = async () => {
     if (!text) return;
-    await axios.post("http://localhost:3000/todos", { text });
+    await axios.post(`${api}/todos`, { text });
     setText("");
     getTodos();
   };
 
   // Delete todo
   const deleteTodo = async (id) => {
-    await axios.delete(`http://localhost:3000/todos/${id}`);
+    await axios.delete(`${api}/todos/${id}`);
     getTodos();
   };
 
